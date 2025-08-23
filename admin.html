@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Rundu Farmers Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- Use environment variables for API endpoints, keys, and sensitive config. See .env setup. -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rundu Farmers Market</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="marketplace.html" class="nav-link">Marketplace</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+                        <li><a href="admin.html" class="nav-link active">Admin Panel</a></li>
+                        <li><a href="training.html" class="nav-link">Training & FAQ</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('registerModal')">Register</button>
+                    <!-- Implement authentication backend. Use env variables for secrets/config. -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Modals for login/register should be included globally or per page as needed. Backend integration required. -->
+    <main>
+        <section id="admin" class="section-page">
+            <div class="container">
+                <div class="section">
+                    <h2>Admin Panel</h2>
+                    <div class="admin-grid">
+                        <div class="admin-card">
+                            <h3>User Management</h3>
+                            <div id="adminUsers">
+                                <p>Loading users...</p>
+                            </div>
+                            <button onclick="fetchUsers()">Refresh Users</button>
+                        </div>
+                        <div class="admin-card">
+                            <h3>Crop Listing Moderation</h3>
+                            <div id="adminProducts">
+                                <p>Loading products...</p>
+                            </div>
+                            <button onclick="fetchProducts()">Refresh Products</button>
+                        </div>
+                        <div class="admin-card">
+                            <h3>Transaction Monitoring</h3>
+                            <div id="adminOrders">
+                                <p>Loading orders...</p>
+                            </div>
+                            <button onclick="fetchOrders()">Refresh Orders</button>
+                        </div>
+                        <div class="admin-card">
+                            <h3>Reporting & Analytics</h3>
+                            <div id="adminAnalytics">
+                                <p>Loading analytics...</p>
+                            </div>
+                            <button onclick="fetchAnalytics()">Refresh Analytics</button>
+                        </div>
+                    </div>
+                    <script>
+                    // Use environment variables for API endpoints
+                    const API_URL = 'https://your-api-url.com'; // Replace with process.env.API_URL in backend
+                    const AUTH_TOKEN = localStorage.getItem('authToken');
+
+                    async function fetchUsers() {
+                        const res = await fetch(`${API_URL}/api/admin/users`, {
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        const users = await res.json();
+                        const container = document.getElementById('adminUsers');
+                        container.innerHTML = users.map(u => `
+                            <div>
+                                <strong>${u.name}</strong> (${u.role})
+                                <button onclick="removeUser('${u.id}')">Remove</button>
+                            </div>
+                        `).join('');
+                    }
+                    async function removeUser(id) {
+                        await fetch(`${API_URL}/api/admin/users/${id}`, {
+                            method: 'DELETE',
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        fetchUsers();
+                    }
+                    async function fetchProducts() {
+                        const res = await fetch(`${API_URL}/api/admin/products`, {
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        const products = await res.json();
+                        const container = document.getElementById('adminProducts');
+                        container.innerHTML = products.map(p => `
+                            <div>
+                                <strong>${p.name}</strong> (${p.status})
+                                <button onclick="approveProduct('${p.id}')">Approve</button>
+                                <button onclick="removeProduct('${p.id}')">Remove</button>
+                            </div>
+                        `).join('');
+                    }
+                    async function approveProduct(id) {
+                        await fetch(`${API_URL}/api/admin/products/${id}/approve`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        fetchProducts();
+                    }
+                    async function removeProduct(id) {
+                        await fetch(`${API_URL}/api/admin/products/${id}`, {
+                            method: 'DELETE',
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        fetchProducts();
+                    }
+                    async function fetchOrders() {
+                        const res = await fetch(`${API_URL}/api/admin/orders`, {
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        const orders = await res.json();
+                        const container = document.getElementById('adminOrders');
+                        container.innerHTML = orders.map(o => `
+                            <div>
+                                <strong>Order #${o.id}</strong> (${o.status})
+                                <button onclick="resolveOrder('${o.id}')">Resolve</button>
+                            </div>
+                        `).join('');
+                    }
+                    async function resolveOrder(id) {
+                        await fetch(`${API_URL}/api/admin/orders/${id}/resolve`, {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        fetchOrders();
+                    }
+                    async function fetchAnalytics() {
+                        const res = await fetch(`${API_URL}/api/admin/analytics`, {
+                            headers: { 'Authorization': `Bearer ${AUTH_TOKEN}` }
+                        });
+                        const analytics = await res.json();
+                        const container = document.getElementById('adminAnalytics');
+                        container.innerHTML = `<pre>${JSON.stringify(analytics, null, 2)}</pre>`;
+                    }
+                    // Initial load
+                    fetchUsers();
+                    fetchProducts();
+                    fetchOrders();
+                    fetchAnalytics();
+                    </script>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rundu Farmers Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- TODO: Use environment variables for API endpoints, keys, and sensitive config. See .env setup. -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rundu Farmers Market</div>
+                <nav>
+                    <ul>
+                        <li><a href="#home" class="nav-link active">Home</a></li>
+                        <li><a href="#marketplace" class="nav-link">Marketplace</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                            <li><a href="#analytics" class="nav-link">Analytics</a></li>
+                            <li><a href="#admin" class="nav-link">Admin Panel</a></li>
+                            <li><a href="#training" class="nav-link">Training & FAQ</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('registerModal')">Register</button>
+                    <!-- TODO: Implement authentication backend. Use env variables for secrets/config. -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="section-page">
+            <div class="hero">
+                <div class="container">
+                    <h1>Connecting Rundu Farmers to Markets</h1>
+                    <p>Empowering small-scale crop farmers through digital innovation. Connect directly with buyers, eliminate intermediaries, and grow your income.</p>
+                    <div style="margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="openModal('registerModal')" style="margin-right: 1rem;">Get Started</button>
+                        <button class="btn btn-outline" onclick="showSection('marketplace')">Browse Products</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">150+</div>
+                        <div>Active Farmers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div>Products Listed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">80+</div>
+                        <div>Regular Buyers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">N$2M+</div>
+                        <div>Total Sales</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Why Choose Our Platform?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>Direct Sales</h3>
+                            <p>Connect directly with buyers in Windhoek and surrounding areas. No intermediaries, better profits for farmers.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Secure Transactions</h3>
+                            <p>Safe and secure payment processing with verified user profiles and transaction protection.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📱</div>
+                            <h3>Easy to Use</h3>
+                            <p>Simple, accessible interface designed for users of all digital literacy levels.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌍</div>
+                            <h3>Market Access</h3>
+                            <p>Expand your reach beyond local roadside stalls to customers across the region.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Analytics</h3>
+                            <p>Track your sales, monitor demand, and make informed decisions about your crops.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤝</div>
+                            <h3>Community</h3>
+                            <p>Join a growing community of farmers and buyers working together for sustainable agriculture.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="marketplace" class="section-page hidden">
+            <div class="container">
+                <div class="section">
+                    <h2>Fresh Produce from Rundu Farmers</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <select id="categoryFilter" style="padding: 0.5rem; border-radius: 5px; border: 1px solid #ddd;">
+                                <option value="">All Categories</option>
+                                <option value="vegetables">Vegetables</option>
+                                <option value="fruits">Fruits</option>
+                                <option value="grains">Grains</option>
+                                <option value="herbs">Herbs</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="openModal('addProductModal')">+ List Product</button>
+                    </div>
+                    
+                    <div class="products-grid" id="productsGrid">
+                    </div>
+                    <div class="orders-section" id="ordersSection" style="margin-top: 3rem;">
+                        <h3>Order Management</h3>
+                        <div id="ordersList">
+                            <!-- Orders will be dynamically listed here -->
+                            <!-- TODO: Implement order backend. Use env for payment/config. -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-page hidden">
+            <div class="container">
+                <div class="section">
+                    <h2>About Rundu Farmers Marketplace</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;">Small-scale crop farmers in Rundu struggle to access consistent and profitable markets for their produce. Most rely on informal selling methods, such as roadside stalls and word-of-mouth, leading to unpredictable sales, spoilage, and low earnings.</p>
+                    
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem;">Our digital marketplace aims to bridge this gap by enabling secure, direct transactions between farmers and buyers. In alignment with Namibia's Vision 2030, which promotes ICT integration in agriculture as a strategy to improve food security and economic inclusion, this platform connects Rundu farmers directly with buyers in Windhoek and surrounding areas.</p>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h3>Our Mission</h3>
+                            <p>To empower small-scale farmers through technology, creating sustainable market connections that improve livelihoods and food security.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Our Vision</h3>
+                            <p>A thriving agricultural ecosystem where every farmer has access to fair markets and every consumer can access fresh, local produce.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>Our Values</h3>
+                            <p>Transparency, fairness, sustainability, and community empowerment drive everything we do.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section-page hidden">
+            <div class="container">
+                <div class="section">
+                    <h2>Contact Us</h2>
+                    <p style="text-align: center; margin-bottom: 2rem;">Have questions or need support? We're here to help!</p>
+                    
+                    <div class="form-container">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="contactName">Name</label>
+                                <input type="text" id="contactName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactSubject">Subject</label>
+                                <input type="text" id="contactSubject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMessage">Message</label>
+                                <textarea id="contactMessage" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        </form>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <h3>Other Ways to Reach Us</h3>
+                        <p>📧 info@rundufarmers.na</p>
+                        <p>📞 +264 66 123 456</p>
+                        <p>📍 Rundu, Kavango East Region, Namibia</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <section id="analytics" class="section-page hidden">
+                <div class="container">
+                    <div class="section">
+                        <h2>Farmer Analytics</h2>
+                        <p>View your sales, product views, and inquiries here. (Feature in progress)</p>
+                    </div>
+                </div>
+            </section>
+            <section id="admin" class="section-page hidden">
+                <div class="container">
+                    <div class="section">
+                        <h2>Admin Panel</h2>
+                        <div class="admin-grid">
+                            <div class="admin-card">
+                                <h3>User Management</h3>
+                                <p>View, edit, and remove farmers and buyers. (Feature in progress)</p>
+                            </div>
+                            <div class="admin-card">
+                                <h3>Crop Listing Moderation</h3>
+                                <p>Approve or remove crop listings. (Feature in progress)</p>
+                            </div>
+                            <div class="admin-card">
+                                <h3>Transaction Monitoring</h3>
+                                <p>Monitor transactions and resolve disputes. (Feature in progress)</p>
+                            </div>
+                            <div class="admin-card">
+                                <h3>Reporting & Analytics</h3>
+                                <p>View platform-wide analytics and generate reports. (Feature in progress)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="training" class="section-page hidden">
+                <div class="container">
+                    <div class="section">
+                        <h2>Training & FAQ</h2>
+                        <div class="onboarding">
+                            <h3>Onboarding Guide for Farmers</h3>
+                            <ol>
+                                <li>Register as a farmer and complete your profile.</li>
+                                <li>List your crops with details and prices.</li>
+                                <li>Respond to buyer inquiries and accept orders.</li>
+                                <li>Fulfill orders and update status.</li>
+                                <li>Track your sales and analytics.</li>
+                            </ol>
+                        </div>
+                        <div class="faq">
+                            <h3>Frequently Asked Questions</h3>
+                            <ul>
+                                <li><strong>How do I register?</strong> Click Register, select your role, and fill in your details.</li>
+                                <li><strong>How do I list a product?</strong> Use the List Product button in the Marketplace section.</li>
+                                <li><strong>How do I contact support?</strong> Use the Contact section or email info@rundufarmers.na.</li>
+                            </ul>
+                        </div>
+                        <div class="support">
+                            <h3>Contact Support</h3>
+                            <p>Email: info@rundufarmers.na</p>
+                            <p>Phone: +264 66 123 456</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    </main>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Create Your Account</h2>
+            
+            <div class="user-type-selector">
+                <button type="button" class="user-type-btn active" data-type="farmer">I'm a Farmer</button>
+                <button type="button" class="user-type-btn" data-type="buyer">I'm a Buyer</button>
+            </div>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group" id="farmDetails">
+                    <label for="farmLocation">Farm Location</label>
+                    <input type="text" id="farmLocation" placeholder="e.g., Rundu West">
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <!-- TODO: Connect registration to backend. Store sensitive config in .env. -->
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+            <h2>List Your Product</h2>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="fruits">Fruits</option>
+                        <option value="grains">Grains</option>
+                        <option value="herbs">Herbs</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price (N$ per kg)</label>
+                    <input type="number" id="productPrice" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productQuantity">Available Quantity (kg)</label>
+                    <input type="number" id="productQuantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">List Product</button>
+                <!-- TODO: Connect product listing to backend. Use env for DB config. -->
+            </form>
+        </div>
+        <div id="messagingModal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <span class="close" onclick="closeModal('messagingModal')">&times;</span>
+        <h2>Messages</h2>
+        <div style="display: flex; gap: 1rem;">
+            <!-- Contacts list -->
+            <div id="contactsList" style="flex: 1; border-right: 1px solid #ddd; max-width: 250px; overflow-y: auto;">
+                <!-- Filled dynamically -->
+                <!-- TODO: Connect messaging to backend. Use env for messaging config. -->
+            </div>
+            <!-- Chat area -->
+            <div style="flex: 2; display: flex; flex-direction: column;">
+                <div id="chatArea" style="flex: 1; overflow-y: auto; padding: 1rem; border-bottom: 1px solid #ddd;">
+                    <p style="text-align:center; color: #777;">Select a contact to start chatting</p>
+                </div>
+                <form id="chatForm" style="display: flex; gap: 0.5rem; padding: 1rem;">
+                    <input type="text" id="chatInput" placeholder="Type a message..." style="flex: 1; padding: 0.8rem; border: 1px solid #ccc; border-radius: 5px;" required>
+                    <button class="btn btn-primary" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</body>
+</html>

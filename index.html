@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Rundu Farmers Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- Use environment variables for API endpoints, keys, and sensitive config. See .env setup. -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rundu Farmers Market</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link active">Home</a></li>
+                        <li><a href="marketplace.html" class="nav-link">Marketplace</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+                        <li><a href="admin.html" class="nav-link">Admin Panel</a></li>
+                        <li><a href="training.html" class="nav-link">Training & FAQ</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('registerModal')">Register</button>
+                    <!-- Implement authentication backend. Use env variables for secrets/config. -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Modals for login/register should be included globally or per page as needed. Backend integration required. -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+    </div>
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Create Your Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+            </form>
+        </div>
+    </div>
+    <main>
+        <section id="home" class="section-page">
+            <div class="hero">
+                <div class="container">
+                    <h1>Connecting Rundu Farmers to Markets</h1>
+                    <p>Empowering small-scale crop farmers through digital innovation. Connect directly with buyers, eliminate intermediaries, and grow your income.</p>
+                    <div style="margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="openModal('registerModal')" style="margin-right: 1rem;">Get Started</button>
+                        <a href="marketplace.html" class="btn btn-outline">Browse Products</a>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number">150+</div>
+                        <div>Active Farmers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div>Products Listed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">80+</div>
+                        <div>Regular Buyers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">N$2M+</div>
+                        <div>Total Sales</div>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Why Choose Our Platform?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>Direct Sales</h3>
+                            <p>Connect directly with buyers in Windhoek and surrounding areas. No intermediaries, better profits for farmers.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>Secure Transactions</h3>
+                            <p>Safe and secure payment processing with verified user profiles and transaction protection.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📱</div>
+                            <h3>Easy to Use</h3>
+                            <p>Simple, accessible interface designed for users of all digital literacy levels.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌍</div>
+                            <h3>Market Access</h3>
+                            <p>Expand your reach beyond local roadside stalls to customers across the region.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Analytics</h3>
+                            <p>Track your sales, monitor demand, and make informed decisions about your crops.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤝</div>
+                            <h3>Community</h3>
+                            <p>Join a growing community of farmers and buyers working together for sustainable agriculture.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Modals for login/register can be included globally or per page as needed -->
+</body>
+</html>

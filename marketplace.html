@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace | Rundu Farmers Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <!-- Use environment variables for API endpoints, keys, and sensitive config. See .env setup. -->
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Rundu Farmers Market</div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" class="nav-link">Home</a></li>
+                        <li><a href="marketplace.html" class="nav-link active">Marketplace</a></li>
+                        <li><a href="about.html" class="nav-link">About</a></li>
+                        <li><a href="contact.html" class="nav-link">Contact</a></li>
+                        <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+                        <li><a href="admin.html" class="nav-link">Admin Panel</a></li>
+                        <li><a href="training.html" class="nav-link">Training & FAQ</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" onclick="openModal('loginModal')">Login</button>
+                    <button class="btn btn-primary" onclick="openModal('registerModal')">Register</button>
+                    <!-- Implement authentication backend. Use env variables for secrets/config. -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Modals for login/register/addProduct should be included globally or per page as needed. Backend integration required. -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+            </form>
+        </div>
+    </div>
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Create Your Account</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Phone Number</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+            </form>
+        </div>
+    </div>
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+            <h2>List Your Product</h2>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="productName">Product Name</label>
+                    <input type="text" id="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productCategory">Category</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="fruits">Fruits</option>
+                        <option value="grains">Grains</option>
+                        <option value="herbs">Herbs</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Price (N$ per kg)</label>
+                    <input type="number" id="productPrice" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productQuantity">Available Quantity (kg)</label>
+                    <input type="number" id="productQuantity" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Description</label>
+                    <textarea id="productDescription" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">List Product</button>
+            </form>
+        </div>
+    </div>
+    <main>
+        <section id="marketplace" class="section-page">
+            <div class="container">
+                <div class="section">
+                    <h2>Fresh Produce from Rundu Farmers</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <select id="categoryFilter" style="padding: 0.5rem; border-radius: 5px; border: 1px solid #ddd;">
+                                <option value="">All Categories</option>
+                                <option value="vegetables">Vegetables</option>
+                                <option value="fruits">Fruits</option>
+                                <option value="grains">Grains</option>
+                                <option value="herbs">Herbs</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="openModal('addProductModal')">+ List Product</button>
+                    <!-- Connect product listing to backend. Use env for DB config. -->
+                    </div>
+                    <div class="products-grid" id="productsGrid"></div>
+                    <div class="orders-section" id="ordersSection" style="margin-top: 3rem;">
+                        <h3>Order Management</h3>
+                        <div id="ordersList">
+                            <!-- Orders will be dynamically listed here -->
+                            <!-- Implement order backend. Use env for payment/config. -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Modals for login/register/addProduct can be included here or globally -->
+</body>
+</html>
