@@ -49,7 +49,7 @@ header {
 }
 
 .logo::before {
-    content: "🔥";
+
     font-size: 2.5rem;
 }
 
